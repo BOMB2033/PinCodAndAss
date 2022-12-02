@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    private GameObject showPanel;
+    public GameObject showPanel;
     public Text showText;
+    private bool isExit = false;
+    private Controller Controller;
+
     private string s1 = @"Какой продолжить? Ты сука не знаешь кто это писал?! 
 Было бы больше денег и желания и еще бы трусы не оставляли след на бедрах, тогда бы может сделали эту функцию!";
     private string s2 = @"Блять, знал бы ты какой тут бюджет, то лишнее кнопки не тыкал от греха подальше.  
@@ -15,53 +20,51 @@ public class Menu : MonoBehaviour
     private string s4 = @"АХАХАХАХАХА, у нас нет денег, чтобы сделать эту функцию, 
 приходи к нам лично и отдавай деньги, а лучше еды принеси";
     private string s5 = @"А вот хуй тебе, а не техподдержка, не заслужил";
+    private Button buttonOk;
     // Start is called before the first frame update
     void Start()
     {
-        showPanel = GameObject.Find("ShowPanel");
+        Controller = GameObject.Find("Controller").GetComponent<Controller>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Controller.isOkPress && isExit)
+        {
+            Application.Quit();
+            Controller.isOkPress = false;
+        }
     }
 
     public void StartG()
     {
-
+        SceneManager.LoadScene(1);
     }
     public void ContinueG()
-    {
-        showPanel.SetActive(true);
-        showText.text = s1;
+    { 
+        Controller.ShowMessage(s1);
     }
     public void OptionsG()
     {
-        showPanel.SetActive(true);
-        showText.text = s2;
+        Controller.ShowMessage(s2);
 
     }
     public void ExitG()
     {
-        showPanel.SetActive(true);
-        showText.text = s3;
-
+        Controller.ShowMessage(s3);
+        Controller.isOkPress = false;
+        isExit = true;
     }
     public void DnatG()
     {
-        showPanel.SetActive(true);
-        showText.text = s4;
+        Controller.ShowMessage(s4);
 
     }
     public void TexPodG()
     {
-        showPanel.SetActive(true);
-        showText.text = s5;
+        Controller.ShowMessage(s5);
 
     }
-    public void OkG()
-    {
-        showPanel.SetActive(false);
-    }
+    
 }

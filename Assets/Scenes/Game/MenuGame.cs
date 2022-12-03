@@ -20,6 +20,7 @@ public class MenuGame : MonoBehaviour
         SetButtonEvemnt(OkMenu, "OkMenu");
         SetButtonEvemnt(Esc, "Esc");
         SetButtonEvemnt(MapButton, "MapButton");
+        SetButtonEvemnt(MapButtonExit, "MapButtonExit");
         panelMenu.SetActive(false);
         panelMap.SetActive(false);
 
@@ -49,17 +50,14 @@ public class MenuGame : MonoBehaviour
         panelMenu.SetActive(true);
     }
     public void MapButton(BaseEventData pointData)
-    {
-        if (panelMap.activeSelf)
-        {
-            panelMap.SetActive(false);
-        }
-        else
-        {
+    { 
             panelMap.SetActive(true);
-        }
     }
-    public void OkMenu(BaseEventData pointData)
+    public void MapButtonExit(BaseEventData pointData)
+    {
+        panelMap.SetActive(false);        
+    }
+        public void OkMenu(BaseEventData pointData)
     {
         panelMenu.SetActive(false);
     }

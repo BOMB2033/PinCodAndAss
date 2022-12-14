@@ -24,24 +24,18 @@ public class Camera : MonoBehaviour
             z = _gameObject.transform.position.z;
             xR = (_gameObject.transform.position.x - x)*100;
             x = _gameObject.transform.position.x;
-        }
-        angl = (360 / Mathf.PI) * Mathf.Atan2(xR,zR);
+            angl = (360 / Mathf.PI) * Mathf.Atan2(xR, zR) / 2;
 
-        
-
-        if (transform.rotation.y < angl)
-        {
-             angll = angl - (360 / Mathf.PI) * transform.rotation.y;
-        }
-        else
-        {
-            angll =(360 / Mathf.PI) * transform.rotation.y - angl;
+            if (angl < 0)
+                angl = (180 - Mathf.Abs(angl));
+            else
+                angl = -(180 - Mathf.Abs(angl));
 
         }
-        angll = (( 180 ) * transform.rotation.y) - angl;
         //angll = transform.rotation.y;
-
-        transform.RotateAroundLocal(new Vector3(0, 1, 0), -angll * 0.001f);
+        transform.rotation = new Quaternion(transform.rotation.x, Mathf.Atan2(xR, zR), transform.rotation.z, 1);
+        //transform.Rotate(new Vector3(0, angl, z));
+      //  transform.RotateAroundLocal(new Vector3(0, 1, 0), -angl * 0.001f);
 
         transform.position = _gameObject.transform.position;
     }
